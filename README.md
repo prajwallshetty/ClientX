@@ -1,6 +1,6 @@
 # 🚀 ClientX – Multi-Tenant Project Management System  
 
-**TeamSync** is a scalable **multi-tenancy project management system** built with the **MERN stack (MongoDB, Express, React, Node.js)**.  
+**ClientX** is a scalable **multi-tenancy project management system** built with the **MERN stack (MongoDB, Express, React, Node.js)**.  
 It’s designed for **real-world B2B collaboration** with features like **Google Sign-In, workspace management, task tracking, role-based permissions, and analytics**.  
 
 Perfect for developers looking to build a **SaaS project management or team collaboration platform**.  
