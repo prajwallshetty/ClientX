@@ -64,8 +64,8 @@ GOOGLE_CLIENT_ID=<your-google-client-id>
 GOOGLE_CLIENT_SECRET=<your-google-client-secret>
 GOOGLE_CALLBACK_URL=http://localhost:8000/api/auth/google/callback
 
-FRONTEND_ORIGIN=http://localhost:3000
-FRONTEND_GOOGLE_CALLBACK_URL=http://localhost:3000/google/callback
+FRONTEND_ORIGIN=http://localhost:5173
+FRONTEND_GOOGLE_CALLBACK_URL=http://localhost:5173/google/callback
 ```
 ### 4 Run the Development Server
 ```bash
