@@ -6,6 +6,7 @@ import {
   Users,
   CheckCircle,
   LayoutDashboard,
+  CreditCard,
 } from "lucide-react";
 import {
   SidebarGroup,
@@ -51,6 +52,11 @@ export function NavMain() {
       title: "Members",
       url: `/workspace/${workspaceId}/members`,
       icon: Users,
+    },
+    {
+      title: "Payments",
+      url: `/workspace/${workspaceId}/payments`,
+      icon: CreditCard,
     },
 
     ...(canManageSettings
