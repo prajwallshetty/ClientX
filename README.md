@@ -73,4 +73,4 @@ npm run dev
 ```
 Backend runs on: http://localhost:8000
 
-Frontend runs on: http://localhost:3000
+Frontend runs on: http://localhost:5173
