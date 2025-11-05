@@ -261,3 +261,28 @@ export const deleteTaskMutationFn = async ({
   );
   return response.data;
 };
+
+//*******AI CHAT ********************************
+//************************* */
+
+export const chatWithAI = async (data: { message: string }): Promise<{ response: string }> => {
+  const response = await API.post(`/ai/chat`, data);
+  return response.data;
+};
+
+export const getChatHistory = async (): Promise<{
+  chatHistory: Array<{
+    _id: string;
+    role: "user" | "assistant";
+    content: string;
+    timestamp: string;
+  }>;
+}> => {
+  const response = await API.get(`/ai/chat/history`);
+  return response.data;
+};
+
+export const clearChatHistory = async (): Promise<{ message: string }> => {
+  const response = await API.delete(`/ai/chat/history`);
+  return response.data;
+};
