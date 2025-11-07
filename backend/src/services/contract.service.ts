@@ -1,21 +1,7 @@
-import fs from "fs";
-import path from "path";
-import { promisify } from "util";
 import ContractModel from "../models/contract.model";
 import { renderSimpleContractPdf } from "../utils/pdf.util";
 import { sha256Hex } from "../utils/hash.util";
 
-const writeFile = promisify(fs.writeFile);
-const mkdir = promisify(fs.mkdir);
-
-const ensureDir = async (dir: string) => {
-  if (!fs.existsSync(dir)) {
-    await mkdir(dir, { recursive: true });
-  }
-};
-
-const SIG_DIR = path.join(process.cwd(), "storage", "signatures");
-const PDF_DIR = path.join(process.cwd(), "storage", "contracts");
 
 const TEMPLATE_BODIES: Record<string, string[]> = {
   NDA: [
@@ -71,7 +57,6 @@ export const signContract = async (params: {
   signatureDataUrl: string;
   ip: string;
 }) => {
-  await ensureDir(SIG_DIR);
   const contract = await ContractModel.findOne({ _id: params.id, workspaceId: params.workspaceId });
   if (!contract) throw new Error("Contract not found");
 
@@ -82,20 +67,17 @@ export const signContract = async (params: {
 
   const base64 = params.signatureDataUrl.replace(/^data:image\/png;base64,/, "");
   const buf = Buffer.from(base64, "base64");
-  const filename = `${contract._id}-${party._id}-${Date.now()}.png`;
-  const filePath = path.join(SIG_DIR, filename);
-  await writeFile(filePath, buf);
 
   const existing = contract.signatures.find((s) => s.partyId.toString() === party._id.toString());
   if (existing) {
-    existing.imagePath = filePath;
+    existing.imageData = buf;
     existing.typedName = params.typedName;
     existing.signedAt = new Date();
     existing.ip = params.ip;
   } else {
     contract.signatures.push({
       partyId: party._id as any,
-      imagePath: filePath,
+      imageData: buf,
       typedName: params.typedName,
       signedAt: new Date(),
       ip: params.ip,
@@ -111,7 +93,6 @@ export const signContract = async (params: {
 };
 
 export const finalizeContract = async (params: { id: string; workspaceId: string }) => {
-  await ensureDir(PDF_DIR);
   const contract = await ContractModel.findOne({ _id: params.id, workspaceId: params.workspaceId });
   if (!contract) throw new Error("Contract not found");
 
@@ -124,10 +105,9 @@ export const finalizeContract = async (params: { id: string; workspaceId: string
       const sig = contract.signatures.find(
         (s) => s.partyId.toString() === p._id.toString()
       );
-      let imageBytes: Uint8Array | undefined;
-      if (sig?.imagePath && fs.existsSync(sig.imagePath)) {
-        imageBytes = new Uint8Array(fs.readFileSync(sig.imagePath));
-      }
+      const imageBytes: Uint8Array | undefined = sig?.imageData
+        ? new Uint8Array(sig.imageData)
+        : undefined;
       return { role: p.role, typedName: sig?.typedName || p.name, imageBytes };
     }
   );
@@ -139,16 +119,14 @@ export const finalizeContract = async (params: { id: string; workspaceId: string
     signatures: signaturesByRole,
   });
 
-  const sha = sha256Hex(Buffer.from(pdfBytes));
-  const filePath = path.join(PDF_DIR, `${contract._id}.pdf`);
-  await writeFile(filePath, pdfBytes);
-
-  contract.pdfPath = filePath;
+  const pdfBuffer = Buffer.from(pdfBytes);
+  const sha = sha256Hex(pdfBuffer);
+  contract.pdfData = pdfBuffer;
   contract.sha256 = sha;
   contract.audit.push({ at: new Date(), event: "finalized" });
   await contract.save();
 
-  return { contract, filePath };
+  return { contract };
 };
 
 export const listContracts = async (workspaceId: string) => {

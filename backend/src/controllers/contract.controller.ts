@@ -56,10 +56,10 @@ export const downloadContractController = asyncHandler(async (req: Request, res:
   const id = contractIdSchema.parse(req.params.id);
   const workspaceId = workspaceIdSchema.parse(req.params.workspaceId);
   const { contract } = await getContract(id, workspaceId);
-  if (!contract || !contract.pdfPath) {
+  if (!contract || !contract.pdfData) {
     return res.status(HTTPSTATUS.BAD_REQUEST).json({ message: "Contract not finalized" });
   }
   res.setHeader("Content-Type", "application/pdf");
   res.setHeader("Content-Disposition", `attachment; filename=contract-${contract._id}.pdf`);
-  return res.status(200).sendFile(contract.pdfPath);
+  return res.status(200).send(Buffer.from(contract.pdfData));
 });
