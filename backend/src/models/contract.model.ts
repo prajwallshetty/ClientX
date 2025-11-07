@@ -11,7 +11,7 @@ export interface ContractParty {
 
 export interface ContractSignature {
   partyId: mongoose.Types.ObjectId;
-  imagePath: string; // local path to signature PNG
+  imageData: Buffer; // signature PNG bytes
   typedName: string;
   signedAt: Date;
   ip: string;
@@ -26,7 +26,7 @@ export interface ContractDocument extends Document {
   status: ContractStatus;
   workspaceId: mongoose.Types.ObjectId;
   createdBy: mongoose.Types.ObjectId;
-  pdfPath?: string;
+  pdfData?: Buffer; // final PDF bytes
   sha256?: string;
   audit: Array<{ at: Date; actor?: string; event: string; meta?: any }>;
   createdAt: Date;
@@ -45,7 +45,7 @@ const partySubSchema = new Schema<ContractParty>(
 const signatureSubSchema = new Schema<ContractSignature>(
   {
     partyId: { type: Schema.Types.ObjectId, required: true },
-    imagePath: { type: String, required: true },
+    imageData: { type: Buffer, required: true },
     typedName: { type: String, required: true },
     signedAt: { type: Date, required: true },
     ip: { type: String, required: true },
@@ -63,7 +63,7 @@ const contractSchema = new Schema<ContractDocument>(
     status: { type: String, enum: ["draft", "partially_signed", "signed"], default: "draft" },
     workspaceId: { type: Schema.Types.ObjectId, ref: "Workspace", required: true },
     createdBy: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    pdfPath: { type: String },
+    pdfData: { type: Buffer },
     sha256: { type: String },
     audit: {
       type: [

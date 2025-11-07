@@ -83,7 +83,7 @@ export default function ContractDetails() {
           <Button variant="outline" onClick={() => finalizeMutation.mutate({ workspaceId, contractId: contract._id })} disabled={finalizeMutation.isPending}>
             Finalize PDF
           </Button>
-          <Button onClick={onDownload} disabled={!contract.pdfPath}>Download PDF</Button>
+          <Button onClick={onDownload} disabled={!contract.sha256}>Download PDF</Button>
         </div>
       </div>
 
