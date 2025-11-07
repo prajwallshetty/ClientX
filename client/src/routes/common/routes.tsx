@@ -9,6 +9,7 @@ import Tasks from "@/page/workspace/Tasks";
 import AIChatPage from "@/page/workspace/ai-chat.page";
 import { AUTH_ROUTES, BASE_ROUTE, PROTECTED_ROUTES } from "./routePaths";
 import InviteUser from "@/page/invite/InviteUser";
+import InvoiceCreate from "@/page/workspace/InvoiceCreate";
 
 export const authenticationRoutePaths = [
   { path: AUTH_ROUTES.SIGN_IN, element: <SignIn /> },
@@ -23,6 +24,7 @@ export const protectedRoutePaths = [
   { path: PROTECTED_ROUTES.MEMBERS, element: <Members /> },
   { path: PROTECTED_ROUTES.SETTINGS, element: <Settings /> },
   { path: PROTECTED_ROUTES.PROJECT_DETAILS, element: <ProjectDetails /> },
+  { path: PROTECTED_ROUTES.INVOICE_CREATE, element: <InvoiceCreate /> },
 ];
 
 export const baseRoutePaths = [

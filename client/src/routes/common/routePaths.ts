@@ -15,6 +15,7 @@ export const PROTECTED_ROUTES = {
   MEMBERS: "/workspace/:workspaceId/members",
   SETTINGS: "/workspace/:workspaceId/settings",
   PROJECT_DETAILS: "/workspace/:workspaceId/project/:projectId",
+  INVOICE_CREATE: "/workspace/:workspaceId/invoices/create",
 };
 
 export const BASE_ROUTE = {

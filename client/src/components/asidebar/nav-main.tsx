@@ -7,6 +7,7 @@ import {
   CheckCircle,
   LayoutDashboard,
   MessageSquare,
+  FilePlus,
 } from "lucide-react";
 import {
   SidebarGroup,
@@ -57,6 +58,11 @@ export function NavMain() {
       title: "Members",
       url: `/workspace/${workspaceId}/members`,
       icon: Users,
+    },
+    {
+      title: "Create Invoice",
+      url: `/workspace/${workspaceId}/invoices/create`,
+      icon: FilePlus,
     },
 
     ...(canManageSettings
