@@ -39,7 +39,7 @@ export const signContractController = asyncHandler(async (req: Request, res: Res
   const id = contractIdSchema.parse(req.params.id);
   const { partyId, signatureDataUrl, typedName } = signContractSchema.parse(req.body);
   const workspaceId = workspaceIdSchema.parse(req.params.workspaceId);
-  const ip = req.ip;
+  const ip = (req.ip ?? (req.headers["x-forwarded-for"] as string) ?? "unknown").toString();
 
   const { contract } = await signContract({ id, workspaceId, partyId, signatureDataUrl, typedName, ip });
   return res.status(HTTPSTATUS.OK).json({ message: "Signature captured", contract });

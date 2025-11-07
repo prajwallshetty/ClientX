@@ -8,6 +8,7 @@ import {
   LayoutDashboard,
   MessageSquare,
   FilePlus,
+  FileText,
 } from "lucide-react";
 import {
   SidebarGroup,
@@ -63,6 +64,11 @@ export function NavMain() {
       title: "Create Invoice",
       url: `/workspace/${workspaceId}/invoices/create`,
       icon: FilePlus,
+    },
+    {
+      title: "Contracts",
+      url: `/workspace/${workspaceId}/contracts`,
+      icon: FileText,
     },
 
     ...(canManageSettings
