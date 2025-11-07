@@ -10,6 +10,9 @@ import AIChatPage from "@/page/workspace/ai-chat.page";
 import { AUTH_ROUTES, BASE_ROUTE, PROTECTED_ROUTES } from "./routePaths";
 import InviteUser from "@/page/invite/InviteUser";
 import InvoiceCreate from "@/page/workspace/InvoiceCreate";
+import ContractsList from "@/page/workspace/contracts/ContractsList";
+import ContractCreate from "@/page/workspace/contracts/ContractCreate";
+import ContractDetails from "@/page/workspace/contracts/ContractDetails";
 
 export const authenticationRoutePaths = [
   { path: AUTH_ROUTES.SIGN_IN, element: <SignIn /> },
@@ -25,6 +28,9 @@ export const protectedRoutePaths = [
   { path: PROTECTED_ROUTES.SETTINGS, element: <Settings /> },
   { path: PROTECTED_ROUTES.PROJECT_DETAILS, element: <ProjectDetails /> },
   { path: PROTECTED_ROUTES.INVOICE_CREATE, element: <InvoiceCreate /> },
+  { path: PROTECTED_ROUTES.CONTRACTS, element: <ContractsList /> },
+  { path: PROTECTED_ROUTES.CONTRACT_CREATE, element: <ContractCreate /> },
+  { path: PROTECTED_ROUTES.CONTRACT_DETAILS, element: <ContractDetails /> },
 ];
 
 export const baseRoutePaths = [

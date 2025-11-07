@@ -283,3 +283,76 @@ export type AllTaskResponseType = {
   tasks: TaskType[];
   pagination: PaginationType;
 };
+
+//********** */ CONTRACT TYPES ************************
+//************************************************* */
+
+export type ContractPartyType = {
+  _id: string;
+  name: string;
+  email: string;
+  role: string;
+};
+
+export type ContractSignatureType = {
+  partyId: string;
+  imagePath?: string;
+  typedName: string;
+  signedAt: string;
+  ip: string;
+};
+
+export type ContractType = {
+  _id: string;
+  title: string;
+  templateKey: "NDA" | "MSA" | "SOW";
+  fields: Record<string, string>;
+  parties: ContractPartyType[];
+  signatures: ContractSignatureType[];
+  status: "draft" | "partially_signed" | "signed";
+  workspaceId: string;
+  createdBy: string;
+  pdfPath?: string;
+  sha256?: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type CreateContractPayloadType = {
+  workspaceId: string;
+  data: {
+    title: string;
+    templateKey: "NDA" | "MSA" | "SOW";
+    fields: Record<string, string>;
+    parties: Array<{ name: string; email: string; role: string }>;
+  };
+};
+
+export type CreateContractResponseType = {
+  message: string;
+  contract: ContractType;
+};
+
+export type ListContractsResponseType = {
+  contracts: ContractType[];
+};
+
+export type GetContractByIdPayloadType = {
+  workspaceId: string;
+  contractId: string;
+};
+
+export type GetContractResponseType = {
+  contract: ContractType;
+};
+
+export type SignContractPayloadType = {
+  workspaceId: string;
+  contractId: string;
+  data: { partyId: string; typedName: string; signatureDataUrl: string };
+};
+
+export type FinalizeContractPayloadType = {
+  workspaceId: string;
+  contractId: string;
+};
