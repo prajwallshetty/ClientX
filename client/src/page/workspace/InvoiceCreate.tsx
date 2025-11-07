@@ -16,6 +16,10 @@ import { toast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
   invoiceNumber: z.string().trim().min(1, { message: "Invoice number is required" }),
+  companyName: z.string().trim().min(1, { message: "Company name is required" }),
+  companyEmail: z.string().trim().email({ message: "Enter a valid email" }).optional(),
+  companyPhone: z.string().trim().optional(),
+  companyAddress: z.string().trim().optional(),
   clientName: z.string().trim().min(1, { message: "Client name is required" }),
   amount: z
     .string()
@@ -35,6 +39,10 @@ export default function InvoiceCreate() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       invoiceNumber: "",
+      companyName: "",
+      companyEmail: "",
+      companyPhone: "",
+      companyAddress: "",
       clientName: "",
       amount: "",
       currency: "USD",
@@ -52,6 +60,69 @@ export default function InvoiceCreate() {
     form.reset();
   };
 
+  const handleDownload = () => {
+    const v = form.getValues();
+    const due = v.dueDate ? format(v.dueDate, "PPP") : "";
+    const html = `<!doctype html>
+<html>
+<head>
+  <meta charset=\"utf-8\" />
+  <title>Invoice ${v.invoiceNumber}</title>
+  <style>
+    body{font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; padding:24px; color:#111}
+    h1{font-size:20px;margin:0}
+    .muted{color:#555}
+    .row{display:flex; justify-content:space-between; gap:24px}
+    .card{border:1px solid #e5e7eb; border-radius:8px; padding:16px; margin:16px 0}
+    table{width:100%; border-collapse:collapse; margin-top:8px}
+    td,th{padding:8px; border-bottom:1px solid #e5e7eb; text-align:left}
+  </style>
+</head>
+<body>
+  <div class="row">
+    <div>
+      <h1>${v.companyName || ""}</h1>
+      <div class="muted">${v.companyEmail || ""}${v.companyEmail && v.companyPhone ? " • " : ""}${v.companyPhone || ""}</div>
+      <div class="muted">${(v.companyAddress as string) || ""}</div>
+    </div>
+    <div style="text-align:right">
+      <div><strong>Invoice:</strong> ${v.invoiceNumber}</div>
+      <div><strong>Status:</strong> ${v.status}</div>
+      <div><strong>Due:</strong> ${due}</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div><strong>Billed To:</strong> ${v.clientName}</div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>${(v.description as string) || "Invoice"}</td>
+        <td>${v.currency} ${v.amount}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:24px; text-align:right"><strong>Total:</strong> ${v.currency} ${v.amount}</div>
+
+  <script>window.onload=function(){window.print();}</script>
+</body>
+</html>`;
+    const w = window.open("", "_blank");
+    if (!w) return;
+    w.document.open();
+    w.document.write(html);
+    w.document.close();
+  };
+
   return (
     <div className="w-full h-auto max-w-3xl">
       <div className="mb-5 pb-2 border-b">
@@ -63,6 +134,63 @@ export default function InvoiceCreate() {
 
       <Form {...form}>
         <form className="space-y-3" onSubmit={form.handleSubmit(onSubmit)}>
+          <FormField
+            control={form.control}
+            name="companyName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Company Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Your Company Pvt Ltd" className="!h-[48px]" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <FormField
+              control={form.control}
+              name="companyEmail"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Company Email</FormLabel>
+                  <FormControl>
+                    <Input type="email" placeholder="billing@company.com" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="companyPhone"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Company Phone</FormLabel>
+                  <FormControl>
+                    <Input placeholder="+1 555 0100" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <FormField
+            control={form.control}
+            name="companyAddress"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Company Address</FormLabel>
+                <FormControl>
+                  <Textarea rows={2} placeholder="Street, City, State, ZIP" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <FormField
             control={form.control}
             name="invoiceNumber"
@@ -212,10 +340,15 @@ export default function InvoiceCreate() {
             )}
           />
 
-          <Button className="flex place-self-end h-[40px] text-white font-semibold" type="submit">
-            <Loader className="hidden" />
-            Create Invoice
-          </Button>
+          <div className="flex gap-2 justify-end">
+            <Button variant="outline" type="button" onClick={handleDownload}>
+              Download
+            </Button>
+            <Button className="h-[40px] text-white font-semibold" type="submit">
+              <Loader className="hidden" />
+              Create Invoice
+            </Button>
+          </div>
         </form>
       </Form>
     </div>
