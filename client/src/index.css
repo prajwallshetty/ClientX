@@ -4,7 +4,7 @@
 
 /* ... */
 html,
-hody {
+body {
   height: 100%;
   font-family: "DM Sans", serif !important;
 }
@@ -187,4 +187,54 @@ em-emoji-picker {
   button[data-placeholder] {
     @apply text-muted-foreground;
   }
+}
+
+/* ===== Subtle motion utilities ===== */
+@keyframes float-slow {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes drift-slow {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(16px, -12px, 0) scale(1.015);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes gradient-shift-slow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+.animate-drift-slow {
+  animation: drift-slow 20s ease-in-out infinite;
+}
+
+.animate-gradient-slow {
+  background-size: 200% 200%;
+  animation: gradient-shift-slow 18s ease-in-out infinite;
 }

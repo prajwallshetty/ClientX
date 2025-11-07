@@ -14,6 +14,7 @@ import InvoiceCreate from "@/page/workspace/InvoiceCreate";
 import ContractsList from "@/page/workspace/contracts/ContractsList";
 import ContractCreate from "@/page/workspace/contracts/ContractCreate";
 import ContractDetails from "@/page/workspace/contracts/ContractDetails";
+import Landing from "@/page/landing/Landing";
 
 export const authenticationRoutePaths = [
   { path: AUTH_ROUTES.SIGN_IN, element: <SignIn /> },
@@ -36,5 +37,6 @@ export const protectedRoutePaths = [
 ];
 
 export const baseRoutePaths = [
+  { path: BASE_ROUTE.LANDING, element: <Landing /> },
   { path: BASE_ROUTE.INVITE_URL, element: <InviteUser /> },
 ];
