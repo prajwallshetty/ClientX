@@ -12,6 +12,7 @@ export const PROTECTED_ROUTES = {
   WORKSPACE: "/workspace/:workspaceId",
   TASKS: "/workspace/:workspaceId/tasks",
   AI_CHAT: "/workspace/:workspaceId/ai-chat",
+  TEAM_CHAT: "/workspace/:workspaceId/chat",
   MEMBERS: "/workspace/:workspaceId/members",
   SETTINGS: "/workspace/:workspaceId/settings",
   PROJECT_DETAILS: "/workspace/:workspaceId/project/:projectId",

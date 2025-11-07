@@ -294,6 +294,52 @@ export const clearChatHistory = async (): Promise<{ message: string }> => {
   return response.data;
 };
 
+//*******WORKSPACE TEAM CHAT ************************
+//***************************************************
+
+export const getWorkspaceChatHistory = async ({
+  workspaceId,
+  limit,
+  cursor,
+}: {
+  workspaceId: string;
+  limit?: number;
+  cursor?: string | null;
+}): Promise<{
+  messages: Array<{
+    _id: string;
+    content: string;
+    createdAt: string;
+    senderId: { _id: string; name?: string; email: string; profilePicture?: string | null };
+  }>;
+  nextCursor: string | null;
+}> => {
+  const params = new URLSearchParams();
+  if (limit) params.append("limit", String(limit));
+  if (cursor) params.append("cursor", cursor);
+  const qs = params.toString();
+  const response = await API.get(`/workspace-chat/${workspaceId}/messages${qs ? `?${qs}` : ""}`);
+  return response.data;
+};
+
+export const sendWorkspaceChatMessage = async ({
+  workspaceId,
+  content,
+}: {
+  workspaceId: string;
+  content: string;
+}): Promise<{
+  message: {
+    _id: string;
+    content: string;
+    createdAt: string;
+    senderId: { _id: string; name?: string; email: string; profilePicture?: string | null };
+  };
+}> => {
+  const response = await API.post(`/workspace-chat/${workspaceId}/messages`, { content });
+  return response.data;
+};
+
 //*******CONTRACTS ********************************
 //************************* */
 

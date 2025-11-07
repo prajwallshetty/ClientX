@@ -9,6 +9,7 @@ import {
   MessageSquare,
   FilePlus,
   FileText,
+  Bot,
 } from "lucide-react";
 import {
   SidebarGroup,
@@ -53,6 +54,11 @@ export function NavMain() {
     {
       title: "AI Chat",
       url: `/workspace/${workspaceId}/ai-chat`,
+      icon: Bot,
+    },
+    {
+      title: "Team Chat",
+      url: `/workspace/${workspaceId}/chat`,
       icon: MessageSquare,
     },
     {
