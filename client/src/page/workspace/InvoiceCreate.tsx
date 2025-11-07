@@ -2,7 +2,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { format } from "date-fns";
-import { CalendarIcon, Loader } from "lucide-react";
+import { CalendarIcon } from "lucide-react";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -340,13 +340,9 @@ export default function InvoiceCreate() {
             )}
           />
 
-          <div className="flex gap-2 justify-end">
-            <Button variant="outline" type="button" onClick={handleDownload}>
+          <div className="flex justify-end">
+            <Button className="h-[40px] text-white font-semibold" type="button" onClick={handleDownload}>
               Download
-            </Button>
-            <Button className="h-[40px] text-white font-semibold" type="submit">
-              <Loader className="hidden" />
-              Create Invoice
             </Button>
           </div>
         </form>
