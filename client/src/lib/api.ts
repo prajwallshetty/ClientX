@@ -14,6 +14,13 @@ import {
   EditProjectPayloadType,
   ProjectByIdPayloadType,
   ProjectResponseType,
+  CreateContractPayloadType,
+  CreateContractResponseType,
+  ListContractsResponseType,
+  GetContractByIdPayloadType,
+  GetContractResponseType,
+  SignContractPayloadType,
+  FinalizeContractPayloadType,
 } from "../types/api.type";
 import {
   AllWorkspaceResponseType,
@@ -284,5 +291,58 @@ export const getChatHistory = async (): Promise<{
 
 export const clearChatHistory = async (): Promise<{ message: string }> => {
   const response = await API.delete(`/ai/chat/history`);
+  return response.data;
+};
+
+//*******CONTRACTS ********************************
+//************************* */
+
+export const createContractMutationFn = async ({
+  workspaceId,
+  data,
+}: CreateContractPayloadType): Promise<CreateContractResponseType> => {
+  const response = await API.post(`/contract/workspace/${workspaceId}/create`, data);
+  return response.data;
+};
+
+export const listContractsQueryFn = async (
+  workspaceId: string
+): Promise<ListContractsResponseType> => {
+  const response = await API.get(`/contract/workspace/${workspaceId}`);
+  return response.data;
+};
+
+export const getContractByIdQueryFn = async ({
+  workspaceId,
+  contractId,
+}: GetContractByIdPayloadType): Promise<GetContractResponseType> => {
+  const response = await API.get(`/contract/${contractId}/workspace/${workspaceId}`);
+  return response.data;
+};
+
+export const signContractMutationFn = async ({
+  workspaceId,
+  contractId,
+  data,
+}: SignContractPayloadType): Promise<{ message: string }> => {
+  const response = await API.post(`/contract/${contractId}/workspace/${workspaceId}/sign`, data);
+  return response.data;
+};
+
+export const finalizeContractMutationFn = async ({
+  workspaceId,
+  contractId,
+}: FinalizeContractPayloadType): Promise<{ message: string }> => {
+  const response = await API.post(`/contract/${contractId}/workspace/${workspaceId}/finalize`, {});
+  return response.data;
+};
+
+export const downloadContractFile = async ({
+  workspaceId,
+  contractId,
+}: FinalizeContractPayloadType): Promise<Blob> => {
+  const response = await API.get(`/contract/${contractId}/workspace/${workspaceId}/download`, {
+    responseType: "blob",
+  });
   return response.data;
 };
