@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Blend,} from "lucide-react";
+import { Blend } from "lucide-react";
 
 const Landing = () => {
   return (
@@ -16,7 +16,6 @@ const Landing = () => {
         <nav className="hidden md:flex items-center gap-6 text-sm text-white/80">
           <a href="#features" className="hover:text-white">Features</a>
           <a href="#how" className="hover:text-white">How it works</a>
-          <a href="#pricing" className="hover:text-white">Pricing</a>
         </nav>
         <div className="flex items-center gap-2 md:gap-3">
           <Link to="/sign-in" className="px-3 md:px-4 py-2 rounded-md text-sm bg-white/10 hover:bg-white/15">Sign in</Link>
@@ -47,40 +46,51 @@ const Landing = () => {
           <p className="mt-4 text-xs text-white/60">Free plan available. No credit card required.</p>
         </section>
 
-        <section className="mt-12 md:mt-16">
-          <div className="relative rounded-2xl border border-white/10 bg-white/5 backdrop-blur overflow-hidden">
-            <div className="absolute -inset-40 bg-white/10 blur-3xl animate-drift-slow" />
-            <div className="relative grid md:grid-cols-2">
-              <div className="p-6 sm:p-8 md:p-12 flex flex-col justify-center">
-                <h2 id="features" className="text-2xl font-semibold">Everything in one place</h2>
-                <ul className="mt-3 md:mt-4 space-y-3 text-white/85 text-sm md:text-base">
-                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-white/70" /> Tasks, projects, and timelines</li>
-                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-white/70" /> Real-time team and AI chat</li>
-                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-white/70" /> Invoices and contracts</li>
-                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-white/70" /> Permissions and workspace settings</li>
-                </ul>
-              </div>
-              <div className="p-6 sm:p-8 md:p-10 bg-gradient-to-br from-black to-zinc-900">
-                <div className="h-56 sm:h-72 md:h-full w-full rounded-xl border border-white/10 bg-black/60 grid place-items-center text-white/50 animate-float-slow">
-                  <span className="text-sm">Beautiful app preview</span>
-                </div>
-              </div>
-            </div>
+        <section id="features" className="mt-12 md:mt-16">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold">Everything in one place</h2>
+            <p className="mt-2 text-white/70">All the tools you need to manage your business efficiently</p>
           </div>
-        </section>
-
-        <section id="pricing" className="mt-16 md:mt-20 text-center">
-          <h3 className="text-lg md:text-xl font-semibold">Simple pricing</h3>
-          <p className="mt-1 md:mt-2 text-white/70">Start free, upgrade when you grow.</p>
-          <div className="mt-5 md:mt-6 inline-flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 md:px-6 py-3 md:py-4">
-            <div>
-              <div className="text-2xl md:text-3xl font-bold">Free</div>
-              <div className="text-white/60 text-sm">Up to 3 members</div>
+          
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            <div className="relative rounded-xl border border-white/10 bg-white/5 backdrop-blur p-6 hover:bg-white/10 transition-colors">
+              <div className="h-12 w-12 rounded-lg bg-white/10 grid place-items-center mb-4">
+                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Tasks & Projects</h3>
+              <p className="text-sm text-white/70">Organize work with tasks, projects, and timelines that keep everyone aligned</p>
             </div>
-            <div className="h-6 w-px bg-white/10" />
-            <div>
-              <div className="text-2xl md:text-3xl font-bold">Pro</div>
-              <div className="text-white/60 text-sm">$9/member/mo</div>
+
+            <div className="relative rounded-xl border border-white/10 bg-white/5 backdrop-blur p-6 hover:bg-white/10 transition-colors">
+              <div className="h-12 w-12 rounded-lg bg-white/10 grid place-items-center mb-4">
+                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Team & AI Chat</h3>
+              <p className="text-sm text-white/70">Collaborate in real-time with your team and get instant AI assistance</p>
+            </div>
+
+            <div className="relative rounded-xl border border-white/10 bg-white/5 backdrop-blur p-6 hover:bg-white/10 transition-colors">
+              <div className="h-12 w-12 rounded-lg bg-white/10 grid place-items-center mb-4">
+                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Invoices & Contracts</h3>
+              <p className="text-sm text-white/70">Create professional invoices and manage contracts all in one place</p>
+            </div>
+
+            <div className="relative rounded-xl border border-white/10 bg-white/5 backdrop-blur p-6 hover:bg-white/10 transition-colors">
+              <div className="h-12 w-12 rounded-lg bg-white/10 grid place-items-center mb-4">
+                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Workspace Settings</h3>
+              <p className="text-sm text-white/70">Control permissions, manage members, and customize your workspace</p>
             </div>
           </div>
         </section>
