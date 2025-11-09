@@ -38,21 +38,21 @@ app.use(
     name: "session",
     keys: [config.SESSION_SECRET],
     maxAge: 24 * 60 * 60 * 1000,
-    secure: config.NODE_ENV === "production",
+    secure: config.NODE_ENV === "production", // only true in production
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: config.NODE_ENV === "production" ? "none" : "lax", // <-- FIXED
   })
 );
+
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(
-  cors({
-    origin: config.FRONTEND_ORIGIN,
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: ["https://clientx.tech"],
+  credentials: true,
+}));
+
 
 app.get(
   `/`,
