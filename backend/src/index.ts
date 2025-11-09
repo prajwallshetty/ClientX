@@ -24,6 +24,9 @@ import contractRoutes from "./routes/contract.route";
 import workspaceChatRoutes from "./routes/workspace-chat.route";
 
 const app = express();
+if (config.NODE_ENV === "production") {
+  app.set("trust proxy", 1);
+}
 const BASE_PATH = config.BASE_PATH;
 
 app.use(express.json());
