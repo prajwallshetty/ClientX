@@ -3,7 +3,9 @@ import { Blend,} from "lucide-react";
 
 const Landing = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white animate-gradient-slow">
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-black via-zinc-950 to-black text-white animate-gradient-slow">
+      {/* Moving grid background */}
+      <div className="pointer-events-none absolute inset-0 bg-grid-slow opacity-50" />
       <header className="container mx-auto px-4 md:px-6 py-6 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="h-9 w-9 rounded-lg bg-white/10 grid place-items-center">
@@ -18,14 +20,14 @@ const Landing = () => {
         </nav>
         <div className="flex items-center gap-2 md:gap-3">
           <Link to="/sign-in" className="px-3 md:px-4 py-2 rounded-md text-sm bg-white/10 hover:bg-white/15">Sign in</Link>
-          <Link to="/sign-up" className="px-3 md:px-4 py-2 rounded-md text-sm bg-indigo-500 hover:bg-indigo-600 text-white">Get started</Link>
+          <Link to="/sign-up" className="px-3 md:px-4 py-2 rounded-md text-sm bg-white text-black hover:bg-zinc-200">Get started</Link>
         </div>
       </header>
 
       <main className="container mx-auto px-4 md:px-6 pt-12 md:pt-16 pb-16 md:pb-24">
         <section className="text-center max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-xs text-white/80 mb-6">
-            <span className="h-2 w-2 rounded-full bg-emerald-400" />
+            <span className="h-2 w-2 rounded-full bg-white/70" />
             Now with AI-powered workspace chat
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight">
@@ -35,7 +37,7 @@ const Landing = () => {
             ClientX unifies tasks, chat, invoicing, and contracts in a single, powerful workspace so your team can ship more and spend less time juggling tools.
           </p>
           <div className="mt-6 md:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4">
-            <Link to="/sign-up" className="px-5 md:px-6 py-3 rounded-md bg-indigo-500 hover:bg-indigo-600 text-white font-medium text-center">
+            <Link to="/sign-up" className="px-5 md:px-6 py-3 rounded-md bg-white text-black hover:bg-zinc-200 font-medium text-center">
               Create your workspace
             </Link>
             <Link to="/sign-in" className="px-5 md:px-6 py-3 rounded-md bg-white/10 hover:bg-white/15 text-white font-medium text-center">
@@ -47,19 +49,19 @@ const Landing = () => {
 
         <section className="mt-12 md:mt-16">
           <div className="relative rounded-2xl border border-white/10 bg-white/5 backdrop-blur overflow-hidden">
-            <div className="absolute -inset-40 bg-indigo-500/20 blur-3xl animate-drift-slow" />
+            <div className="absolute -inset-40 bg-white/10 blur-3xl animate-drift-slow" />
             <div className="relative grid md:grid-cols-2">
               <div className="p-6 sm:p-8 md:p-12 flex flex-col justify-center">
                 <h2 id="features" className="text-2xl font-semibold">Everything in one place</h2>
                 <ul className="mt-3 md:mt-4 space-y-3 text-white/85 text-sm md:text-base">
-                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400" /> Tasks, projects, and timelines</li>
-                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400" /> Real-time team and AI chat</li>
-                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400" /> Invoices and contracts</li>
-                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400" /> Permissions and workspace settings</li>
+                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-white/70" /> Tasks, projects, and timelines</li>
+                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-white/70" /> Real-time team and AI chat</li>
+                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-white/70" /> Invoices and contracts</li>
+                  <li className="flex items-start gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-white/70" /> Permissions and workspace settings</li>
                 </ul>
               </div>
-              <div className="p-6 sm:p-8 md:p-10 bg-gradient-to-br from-slate-900 to-slate-800">
-                <div className="h-56 sm:h-72 md:h-full w-full rounded-xl border border-white/10 bg-slate-950/60 grid place-items-center text-white/50 animate-float-slow">
+              <div className="p-6 sm:p-8 md:p-10 bg-gradient-to-br from-black to-zinc-900">
+                <div className="h-56 sm:h-72 md:h-full w-full rounded-xl border border-white/10 bg-black/60 grid place-items-center text-white/50 animate-float-slow">
                   <span className="text-sm">Beautiful app preview</span>
                 </div>
               </div>

@@ -15,6 +15,13 @@ const appConfig = () => ({
 
   FRONTEND_ORIGIN: getEnv("FRONTEND_ORIGIN", "localhost"),
   FRONTEND_GOOGLE_CALLBACK_URL: getEnv("FRONTEND_GOOGLE_CALLBACK_URL"),
+
+  SMTP_HOST: getEnv("SMTP_HOST", ""),
+  SMTP_PORT: Number(getEnv("SMTP_PORT", "587")),
+  SMTP_SECURE: getEnv("SMTP_SECURE", "false") === "true",
+  SMTP_USER: getEnv("SMTP_USER", ""),
+  SMTP_PASS: getEnv("SMTP_PASS", ""),
+  EMAIL_FROM: getEnv("EMAIL_FROM", "no-reply@clientx.local"),
 });
 
 export const config = appConfig();

@@ -51,6 +51,20 @@ export const getCurrentUserQueryFn =
     return response.data;
   };
 
+export const forgotPasswordMutationFn = async (
+  email: string
+): Promise<{ message: string; resetToken?: string; resetUrl?: string }> => {
+  const response = await API.post("/auth/forgot-password", { email });
+  return response.data;
+};
+
+export const resetPasswordMutationFn = async (
+  payload: { token: string; password: string }
+): Promise<{ message: string }> => {
+  const response = await API.post("/auth/reset-password", payload);
+  return response.data;
+};
+
 //********* WORKSPACE ****************
 //************* */
 
