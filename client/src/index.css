@@ -238,3 +238,21 @@ em-emoji-picker {
   background-size: 200% 200%;
   animation: gradient-shift-slow 18s ease-in-out infinite;
 }
+
+/* grid background */
+@keyframes grid-move-slow {
+  0% {
+    background-position: 0 0, 0 0;
+  }
+  100% {
+    background-position: 40px 40px, 40px 40px;
+  }
+}
+
+.bg-grid-slow {
+  background-image:
+    linear-gradient(transparent 0 calc(100% - 1px), rgba(255,255,255,0.08) calc(100% - 1px) 100%),
+    linear-gradient(90deg, transparent 0 calc(100% - 1px), rgba(255,255,255,0.08) calc(100% - 1px) 100%);
+  background-size: 40px 40px, 40px 40px;
+  animation: grid-move-slow 20s linear infinite;
+}
