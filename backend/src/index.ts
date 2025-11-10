@@ -49,7 +49,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(cors({
-  origin: ["https://clientx.tech"],
+  origin: ["https://www.clientx.tech"],
   credentials: true,
 }));
 
