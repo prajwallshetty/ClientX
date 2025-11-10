@@ -66,10 +66,10 @@ const InviteUser = () => {
           <Card>
             <CardHeader className="text-center">
               <CardTitle className="text-xl">
-                Hey there! You're invited to join a TeamSync Workspace!
+                Hey there! You're invited to join a ClientX Workspace!
               </CardTitle>
               <CardDescription>
-                Looks like you need to be logged into your TeamSync account to
+                Looks like you need to be logged into your ClientX account to
                 join this Workspace.
               </CardDescription>
             </CardHeader>

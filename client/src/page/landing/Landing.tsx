@@ -5,7 +5,7 @@ const Landing = () => {
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-black via-zinc-950 to-black text-white animate-gradient-slow">
       {/* Moving grid background */}
-      <div className="pointer-events-none absolute inset-0 bg-grid-slow opacity-50" />
+      <div className="pointer-events-none absolute inset-0 bg-grid-slow opacity-70" />
       <header className="container mx-auto px-4 md:px-6 py-6 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="h-9 w-9 rounded-lg bg-white/10 grid place-items-center">
