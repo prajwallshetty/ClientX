@@ -53,7 +53,6 @@ app.use(cors({
   credentials: true,
 }));
 
-
 app.get(
   `/`,
   asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
