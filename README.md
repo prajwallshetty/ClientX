@@ -150,5 +150,10 @@ The AI Chat Assistant is powered by **Google Gemini 2.0 Flash** and provides int
 - **No Context**: Make sure you're logged in
 - **Responses Cut Off**: Increase `maxOutputTokens` in `ai.service.ts`
 
-<iframe style="width:100%;height:auto;min-width:600px;min-height:400px;" src="https://www.star-history.com/embed?secret=#prajwallshetty/ClientX&type=date&legend=top-left" frameBorder="0"></iframe>
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=prajwallshetty/ClientX&type=date&legend=top-left)](https://www.star-history.com/#prajwallshetty/ClientX&type=date&legend=top-left)
+Copy to GitHub README.md
+
+
 ---
