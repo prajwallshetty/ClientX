@@ -153,7 +153,5 @@ The AI Chat Assistant is powered by **Google Gemini 2.0 Flash** and provides int
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=prajwallshetty/ClientX&type=date&legend=top-left)](https://www.star-history.com/#prajwallshetty/ClientX&type=date&legend=top-left)
-Copy to GitHub README.md
-
 
 ---
