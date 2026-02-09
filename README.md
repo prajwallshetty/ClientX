@@ -41,7 +41,7 @@ Perfect for developers looking to build a **SaaS project management or team coll
 
 ### 1️ Clone the Repository  
 ```bash
-git clone https://github.com/prajwallshetty/ClientX.git
+git clone https://github.com/Chethumalli/ClientX.git
 cd ClientX
 
 ```
