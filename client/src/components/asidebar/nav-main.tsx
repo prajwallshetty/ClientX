@@ -6,6 +6,10 @@ import {
   Users,
   CheckCircle,
   LayoutDashboard,
+  MessageSquare,
+  FilePlus,
+  FileText,
+  Bot,
 } from "lucide-react";
 import {
   SidebarGroup,
@@ -48,9 +52,29 @@ export function NavMain() {
       icon: CheckCircle,
     },
     {
+      title: "AI Chat",
+      url: `/workspace/${workspaceId}/ai-chat`,
+      icon: Bot,
+    },
+    {
+      title: "Team Chat",
+      url: `/workspace/${workspaceId}/chat`,
+      icon: MessageSquare,
+    },
+    {
       title: "Members",
       url: `/workspace/${workspaceId}/members`,
       icon: Users,
+    },
+    {
+      title: "Create Invoice",
+      url: `/workspace/${workspaceId}/invoices/create`,
+      icon: FilePlus,
+    },
+    {
+      title: "Contracts",
+      url: `/workspace/${workspaceId}/contracts`,
+      icon: FileText,
     },
 
     ...(canManageSettings

@@ -1,6 +1,6 @@
 import passport from "passport";
 import { Request } from "express";
-import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import { Strategy as GoogleStrategy, Profile } from "passport-google-oauth20";
 import { Strategy as LocalStrategy } from "passport-local";
 
 import { config } from "./app.config";
@@ -20,9 +20,15 @@ passport.use(
       scope: ["profile", "email"],
       passReqToCallback: true,
     },
-    async (req: Request, accessToken, refreshToken, profile, done) => {
+    async (
+      req: Request,
+      accessToken: string,
+      refreshToken: string,
+      profile: Profile,
+      done: (error: any, user?: any, info?: any) => void
+    ) => {
       try {
-        const { email, sub: googleId, picture } = profile._json;
+        const { email, sub: googleId, picture } = profile._json as any;
         console.log(profile, "profile");
         console.log(googleId, "googleId");
         if (!googleId) {
@@ -51,7 +57,11 @@ passport.use(
       passwordField: "password",
       session: true,
     },
-    async (email, password, done) => {
+    async (
+      email: string,
+      password: string,
+      done: (error: any, user?: any, info?: any) => void
+    ) => {
       try {
         const user = await verifyUserService({ email, password });
         return done(null, user);

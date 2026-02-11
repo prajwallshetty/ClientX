@@ -14,6 +14,13 @@ import {
   EditProjectPayloadType,
   ProjectByIdPayloadType,
   ProjectResponseType,
+  CreateContractPayloadType,
+  CreateContractResponseType,
+  ListContractsResponseType,
+  GetContractByIdPayloadType,
+  GetContractResponseType,
+  SignContractPayloadType,
+  FinalizeContractPayloadType,
 } from "../types/api.type";
 import {
   AllWorkspaceResponseType,
@@ -43,6 +50,20 @@ export const getCurrentUserQueryFn =
     const response = await API.get(`/user/current`);
     return response.data;
   };
+
+export const forgotPasswordMutationFn = async (
+  email: string
+): Promise<{ message: string; resetToken?: string; resetUrl?: string }> => {
+  const response = await API.post("/auth/forgot-password", { email });
+  return response.data;
+};
+
+export const resetPasswordMutationFn = async (
+  payload: { token: string; password: string }
+): Promise<{ message: string }> => {
+  const response = await API.post("/auth/reset-password", payload);
+  return response.data;
+};
 
 //********* WORKSPACE ****************
 //************* */
@@ -259,5 +280,129 @@ export const deleteTaskMutationFn = async ({
   const response = await API.delete(
     `task/${taskId}/workspace/${workspaceId}/delete`
   );
+  return response.data;
+};
+
+//*******AI CHAT ********************************
+//************************* */
+
+export const chatWithAI = async (data: { message: string }): Promise<{ response: string }> => {
+  const response = await API.post(`/ai/chat`, data);
+  return response.data;
+};
+
+export const getChatHistory = async (): Promise<{
+  chatHistory: Array<{
+    _id: string;
+    role: "user" | "assistant";
+    content: string;
+    timestamp: string;
+  }>;
+}> => {
+  const response = await API.get(`/ai/chat/history`);
+  return response.data;
+};
+
+export const clearChatHistory = async (): Promise<{ message: string }> => {
+  const response = await API.delete(`/ai/chat/history`);
+  return response.data;
+};
+
+//*******WORKSPACE TEAM CHAT ************************
+//***************************************************
+
+export const getWorkspaceChatHistory = async ({
+  workspaceId,
+  limit,
+  cursor,
+}: {
+  workspaceId: string;
+  limit?: number;
+  cursor?: string | null;
+}): Promise<{
+  messages: Array<{
+    _id: string;
+    content: string;
+    createdAt: string;
+    senderId: { _id: string; name?: string; email: string; profilePicture?: string | null };
+  }>;
+  nextCursor: string | null;
+}> => {
+  const params = new URLSearchParams();
+  if (limit) params.append("limit", String(limit));
+  if (cursor) params.append("cursor", cursor);
+  const qs = params.toString();
+  const response = await API.get(`/workspace-chat/${workspaceId}/messages${qs ? `?${qs}` : ""}`);
+  return response.data;
+};
+
+export const sendWorkspaceChatMessage = async ({
+  workspaceId,
+  content,
+}: {
+  workspaceId: string;
+  content: string;
+}): Promise<{
+  message: {
+    _id: string;
+    content: string;
+    createdAt: string;
+    senderId: { _id: string; name?: string; email: string; profilePicture?: string | null };
+  };
+}> => {
+  const response = await API.post(`/workspace-chat/${workspaceId}/messages`, { content });
+  return response.data;
+};
+
+//*******CONTRACTS ********************************
+//************************* */
+
+export const createContractMutationFn = async ({
+  workspaceId,
+  data,
+}: CreateContractPayloadType): Promise<CreateContractResponseType> => {
+  const response = await API.post(`/contract/workspace/${workspaceId}/create`, data);
+  return response.data;
+};
+
+export const listContractsQueryFn = async (
+  workspaceId: string
+): Promise<ListContractsResponseType> => {
+  const response = await API.get(`/contract/workspace/${workspaceId}`);
+  return response.data;
+};
+
+export const getContractByIdQueryFn = async ({
+  workspaceId,
+  contractId,
+}: GetContractByIdPayloadType): Promise<GetContractResponseType> => {
+  const response = await API.get(`/contract/${contractId}/workspace/${workspaceId}`);
+  return response.data;
+};
+
+export const signContractMutationFn = async ({
+  workspaceId,
+  contractId,
+  data,
+}: SignContractPayloadType): Promise<{ message: string }> => {
+  const response = await API.post(`/contract/${contractId}/workspace/${workspaceId}/sign`, data);
+  return response.data;
+};
+
+export const finalizeContractMutationFn = async ({
+  workspaceId,
+  contractId,
+}: FinalizeContractPayloadType): Promise<{ message: string }> => {
+  const response = await API.post(`/contract/${contractId}/workspace/${workspaceId}/finalize`, {});
+  return response.data;
+};
+
+export const downloadContractFile = async ({
+  workspaceId,
+  contractId,
+}: FinalizeContractPayloadType): Promise<Blob> => {
+  const response = await API.get(`/contract/${contractId}/workspace/${workspaceId}/download`, {
+    responseType: "blob",
+  });
   return response.data;
 };

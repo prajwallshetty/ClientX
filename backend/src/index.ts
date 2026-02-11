@@ -19,8 +19,14 @@ import workspaceRoutes from "./routes/workspace.route";
 import memberRoutes from "./routes/member.route";
 import projectRoutes from "./routes/project.route";
 import taskRoutes from "./routes/task.route";
+import aiRoutes from "./routes/ai.route";
+import contractRoutes from "./routes/contract.route";
+import workspaceChatRoutes from "./routes/workspace-chat.route";
 
 const app = express();
+if (config.NODE_ENV === "production") {
+  app.set("trust proxy", 1);
+}
 const BASE_PATH = config.BASE_PATH;
 
 app.use(express.json());
@@ -32,21 +38,20 @@ app.use(
     name: "session",
     keys: [config.SESSION_SECRET],
     maxAge: 24 * 60 * 60 * 1000,
-    secure: config.NODE_ENV === "production",
+    secure: config.NODE_ENV === "production", // only true in production
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: config.NODE_ENV === "production" ? "none" : "lax", // <-- FIXED
   })
 );
+
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(
-  cors({
-    origin: config.FRONTEND_ORIGIN,
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: ["https://www.clientx.tech"],
+  credentials: true,
+}));
 
 app.get(
   `/`,
@@ -67,6 +72,9 @@ app.use(`${BASE_PATH}/workspace`, isAuthenticated, workspaceRoutes);
 app.use(`${BASE_PATH}/member`, isAuthenticated, memberRoutes);
 app.use(`${BASE_PATH}/project`, isAuthenticated, projectRoutes);
 app.use(`${BASE_PATH}/task`, isAuthenticated, taskRoutes);
+app.use(`${BASE_PATH}/ai`, isAuthenticated, aiRoutes);
+app.use(`${BASE_PATH}/contract`, isAuthenticated, contractRoutes);
+app.use(`${BASE_PATH}/workspace-chat`, isAuthenticated, workspaceChatRoutes);
 
 app.use(errorHandler);
 
