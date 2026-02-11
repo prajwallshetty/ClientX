@@ -45,7 +45,7 @@ Perfect for developers looking to build a **SaaS project management or team coll
 
 ### 1️ Clone the Repository  
 ```bash
-git clone https://github.com/prajwallshetty/ClientX.git
+git clone https://github.com/Chethumalli/ClientX.git
 cd ClientX
 
 ```
@@ -114,7 +114,7 @@ The AI Chat Assistant is powered by **Google Gemini 2.0 Flash** and provides int
    GEMINI_API_KEY=paste_your_key_here
    ```
 
-3. **Restart Server** (Done! ✅)
+3. **Restart Server** (Done ✅)
    ```bash
    npm run dev
    ```
