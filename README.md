@@ -114,7 +114,7 @@ The AI Chat Assistant is powered by **Google Gemini 2.0 Flash** and provides int
    GEMINI_API_KEY=paste_your_key_here
    ```
 
-3. **Restart Server** (Done! ✅)
+3. **Restart Server** (Done ✅)
    ```bash
    npm run dev
    ```
